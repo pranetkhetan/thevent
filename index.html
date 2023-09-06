@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Indie+Flower">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower">
     <style>
         body {
-            background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+            background-image: linear-gradient(to top, #f6eeab, #b4d2af);
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -17,13 +16,27 @@
             font-family: "Indie Flower", sans-serif;
             position: relative;
         }
+
         #background-image {
             position: absolute;
-            top: 20px; /* Add some top padding */
-            left: 25%; /* Add some left padding */
-            width: 50%; /* Make the image smaller (adjust this percentage as needed) */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('emoji-background.png') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.5; /* Adjust the opacity as needed */
+            z-index: -1;
+        }
+
+        #vent {
+            position: absolute;
+            top: 20px;
+            left: 25%;
+            width: 50%;
             z-index: 0;
         }
+
         #textbox {
             width: 70%;
             padding: 10px;
@@ -33,7 +46,7 @@
             outline: none;
             font-size: 15px;
             box-sizing: border-box;
-            background: linear-gradient(to right, #ffffff, #ffd6b5);
+            background: linear-gradient(to right, white, white);
             color: #333;
             font-family: "Indie Flower", sans-serif;
             font-size: 2vw;
@@ -48,28 +61,24 @@
             font-size: 1.5vw;
             z-index: 1;
             white-space: normal;
-            width:300px;
+            max-width: 500px;
         }
         @keyframes floatAndFade {
             0% { transform: translateY(0) rotate(0); opacity: 1; }
             50% { transform: translateY(-50vh) rotate(15deg); opacity: 0.5; }
-            100% { transform: translateY(-65vh) rotate(-10deg); opacity: 0; }
-        }
-        @keyframes floatAndFadeBigBoi {
-            0% { transform: translateY(0) rotate(0); opacity: 1; }
-            100% { transform: translateY(-50vh) rotate(15deg); opacity: 0; }
+            100% { transform: translateY(-60vh) rotate(-10deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <img id="background-image" src="vent.png" alt="Background Image">
+    <!-- Add a div for the background image -->
+    <div id="background-image"></div>
 
-    <textarea id="textbox" placeholder="Press enter to make it disappear... and float off... into the clouds.... " rows="3" cols="40"></textarea>
+    <img id="vent" src="vent.png" alt="The vent where all your frustrations go">
+    <textarea id="textbox" placeholder="Press enter to make it disappear... and float off... " rows="3" cols="40"></textarea>
 
-    <!-- ... (previous HTML code) ... -->
-
-<script>
-    const textbox = document.getElementById('textbox');
+    <script>
+        const textbox = document.getElementById('textbox');
     let wordArray = [];
 
     textbox.addEventListener('keyup', function (e) {
@@ -82,38 +91,17 @@
                 message.textContent = fullText;
 
                 // Define the bounds for x-coordinate (left) based on the vent image's position and width
-                const ventLeft = document.getElementById('background-image').offsetLeft; // Left position of the vent image
-                const ventWidth = document.getElementById('background-image').offsetWidth; // Width of the vent image
+                const ventLeft = document.getElementById('vent').offsetLeft; // Left position of the vent image
+                const ventWidth = document.getElementById('vent').offsetWidth; // Width of the vent image
 
                 // Calculate a random position within the vent's bounds with a smaller range
                 const randomX = ventLeft + Math.random() * (ventWidth - message.offsetWidth - 200); // Adjust the range by subtracting 20 pixels
-
-                message.style.animation = `floatAndFadeBigBoi ${5 + Math.random() * 5}s forwards`;
-                message.style.left = `${randomX}px`; // Set the left position
-                message.style.bottom = `${20}vh`;
-                document.body.appendChild(message);
-                this.value = '';
-            }
-        } else if (e.keyCode === 32) {
-            // Check if Space key (key code 32) was pressed
-            const word = wordArray.join(' ');
-            if (word !== '') {
-                const message = document.createElement('p');
-                message.classList.add('message');
-                message.textContent = word;
-
-                // Define the bounds for x-coordinate (left) based on the vent image's position and width
-                const ventLeft = document.getElementById('background-image').offsetLeft; // Left position of the vent image
-                const ventWidth = document.getElementById('background-image').offsetWidth; // Width of the vent image
-
-                // Calculate a random position within the vent's bounds with a smaller range
-                const randomX = ventLeft + Math.random() * (ventWidth - message.offsetWidth - 20); // Adjust the range by subtracting 20 pixels
 
                 message.style.animation = `floatAndFade ${5 + Math.random() * 5}s forwards`;
                 message.style.left = `${randomX}px`; // Set the left position
                 message.style.bottom = `${20}vh`;
                 document.body.appendChild(message);
-                wordArray = [];
+                this.value = '';
             }
         } else if (e.keyCode === 8) {
             // Check if Backspace key (key code 8) was pressed
@@ -126,8 +114,6 @@
             wordArray.push(word);
         }
     });
-</script>
-<!-- ... (rest of the HTML code) ... -->
-
+    </script>
 </body>
 </html>
