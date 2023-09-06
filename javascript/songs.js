@@ -33,5 +33,13 @@ function runSong() {
     audio.src = '/audio/' + song[2]
     audio.play()
 }
-runSong()
-t = setInterval(runSong,180000)
+let hasClicked = false;
+document.addEventListener('click', function () {
+    if (!hasClicked) {
+        runSong(); // Run the initial song on first click.
+        hasClicked = true;
+        
+        // Schedule the periodic song changes after the first click.
+        const t = setInterval(runSong, 180000);
+    }
+});
