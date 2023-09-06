@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Indie+Flower">
     <style>
-        @import url('https://fonts.googleapis.com/css? family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
-        @font-face {
-            font-family: "shadows";
-            src: url('/ShadowsIntoLight-Regular.ttf');
-        }
         body {
             background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
             display: flex;
@@ -17,7 +14,15 @@
             padding: 20px;
             box-sizing: border-box;
             overflow: hidden;
-            font-family: "shadows", sans-serif;
+            font-family: "Indie Flower", sans-serif;
+            position: relative;
+        }
+        #background-image {
+            position: absolute;
+            top: 20px; /* Add some top padding */
+            left: 25%; /* Add some left padding */
+            width: 50%; /* Make the image smaller (adjust this percentage as needed) */
+            z-index: 0;
         }
         #textbox {
             width: 70%;
@@ -30,7 +35,7 @@
             box-sizing: border-box;
             background: linear-gradient(to right, #ffffff, #ffd6b5);
             color: #333;
-            font-family: "shadows",sans-serif;
+            font-family: "Indie Flower", sans-serif;
             font-size: 2vw;
         }
         .message {
@@ -39,62 +44,90 @@
             left: 10%;
             opacity: 1;
             transition: all 5s;
-            font-family: "shadows", sans-serif;
+            font-family: "Indie Flower", sans-serif;
             font-size: 1.5vw;
+            z-index: 1;
+            white-space: normal;
+            width:300px;
         }
         @keyframes floatAndFade {
             0% { transform: translateY(0) rotate(0); opacity: 1; }
             50% { transform: translateY(-50vh) rotate(15deg); opacity: 0.5; }
-            100% { transform: translateY(-100vh) rotate(30deg); opacity: 0; }
+            100% { transform: translateY(-65vh) rotate(-10deg); opacity: 0; }
+        }
+        @keyframes floatAndFadeBigBoi {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(-50vh) rotate(15deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
+    <img id="background-image" src="vent.png" alt="Background Image">
 
-    <textarea id="textbox" placeholder="Press enter to make it dissapear... and float off... into the clouds.... " rows="3" cols="40"></textarea>
+    <textarea id="textbox" placeholder="Press enter to make it disappear... and float off... into the clouds.... " rows="3" cols="40"></textarea>
 
-    <script>
-        const textbox = document.getElementById('textbox');
-        let wordArray = [];
+    <!-- ... (previous HTML code) ... -->
 
-        textbox.addEventListener('keyup', function (e) {
-            // Check if Enter key (key code 13) was pressed
-            if (e.keyCode === 13) {
-                const fullText = this.value;
-                if (fullText.trim() !== '') {
-                    const message = document.createElement('p');
-                    message.classList.add('message');
-                    message.textContent = fullText;
-                    message.style.animation = `floatAndFade ${5 + Math.random() * 5}s forwards`;
-                    message.style.left = `${Math.random() * 100}vw`;
-                    message.style.bottom = `${20}vh`;
-                    document.body.appendChild(message);
-                    this.value = '';
-                }
-            } else if (e.keyCode === 32) {
-                // Check if Space key (key code 32) was pressed
-                const word = wordArray.join(' ');
-                if (word !== '') {
-                    const message = document.createElement('p');
-                    message.classList.add('message');
-                    message.textContent = word;
-                    message.style.animation = `floatAndFade ${5 + Math.random() * 5}s forwards`;
-                    message.style.left = `${Math.random() * 100}vw`;
-                    message.style.bottom = `${20}vh`;
-                    document.body.appendChild(message);
-                    wordArray = [];
-                }
-            } else if (e.keyCode === 8) {
-                // Check if Backspace key (key code 8) was pressed
-                if (wordArray.length > 0) {
-                    // Remove the last character from wordArray when Backspace is pressed
-                    wordArray.pop();
-                }
-            } else {
-                const word = e.key;
-                wordArray.push(word);
+<script>
+    const textbox = document.getElementById('textbox');
+    let wordArray = [];
+
+    textbox.addEventListener('keyup', function (e) {
+        // Check if Enter key (key code 13) was pressed
+        if (e.keyCode === 13) {
+            const fullText = this.value;
+            if (fullText.trim() !== '') {
+                const message = document.createElement('p');
+                message.classList.add('message');
+                message.textContent = fullText;
+
+                // Define the bounds for x-coordinate (left) based on the vent image's position and width
+                const ventLeft = document.getElementById('background-image').offsetLeft; // Left position of the vent image
+                const ventWidth = document.getElementById('background-image').offsetWidth; // Width of the vent image
+
+                // Calculate a random position within the vent's bounds with a smaller range
+                const randomX = ventLeft + Math.random() * (ventWidth - message.offsetWidth - 200); // Adjust the range by subtracting 20 pixels
+
+                message.style.animation = `floatAndFadeBigBoi ${5 + Math.random() * 5}s forwards`;
+                message.style.left = `${randomX}px`; // Set the left position
+                message.style.bottom = `${20}vh`;
+                document.body.appendChild(message);
+                this.value = '';
             }
-        });
-    </script>
+        } else if (e.keyCode === 32) {
+            // Check if Space key (key code 32) was pressed
+            const word = wordArray.join(' ');
+            if (word !== '') {
+                const message = document.createElement('p');
+                message.classList.add('message');
+                message.textContent = word;
+
+                // Define the bounds for x-coordinate (left) based on the vent image's position and width
+                const ventLeft = document.getElementById('background-image').offsetLeft; // Left position of the vent image
+                const ventWidth = document.getElementById('background-image').offsetWidth; // Width of the vent image
+
+                // Calculate a random position within the vent's bounds with a smaller range
+                const randomX = ventLeft + Math.random() * (ventWidth - message.offsetWidth - 20); // Adjust the range by subtracting 20 pixels
+
+                message.style.animation = `floatAndFade ${5 + Math.random() * 5}s forwards`;
+                message.style.left = `${randomX}px`; // Set the left position
+                message.style.bottom = `${20}vh`;
+                document.body.appendChild(message);
+                wordArray = [];
+            }
+        } else if (e.keyCode === 8) {
+            // Check if Backspace key (key code 8) was pressed
+            if (wordArray.length > 0) {
+                // Remove the last character from wordArray when Backspace is pressed
+                wordArray.pop();
+            }
+        } else {
+            const word = e.key;
+            wordArray.push(word);
+        }
+    });
+</script>
+<!-- ... (rest of the HTML code) ... -->
+
 </body>
 </html>
