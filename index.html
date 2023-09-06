@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower">
     <style>
         body {
-            background-image: linear-gradient(to top, #f6eeab, #b4d2af);
+            background-image: linear-gradient(to top, #F4C2C2, #ffffff);
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -23,7 +23,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('emoji-background.png') no-repeat center center fixed;
+            background: url('images/emoji-background.png') no-repeat center center fixed;
             background-size: cover;
             opacity: 0.5; /* Adjust the opacity as needed */
             z-index: -1;
@@ -35,6 +35,7 @@
             left: 25%;
             width: 50%;
             z-index: 0;
+            opacity: 90%;
         }
 
         #textbox {
@@ -74,7 +75,7 @@
     <!-- Add a div for the background image -->
     <div id="background-image"></div>
 
-    <img id="vent" src="vent.png" alt="The vent where all your frustrations go">
+    <img id="vent" src="images/vent.png" alt="The vent where all your frustrations go">
     <textarea id="textbox" placeholder="Press enter to make it disappear... and float off... " rows="3" cols="40"></textarea>
 
     <script>
@@ -114,6 +115,32 @@
             wordArray.push(word);
         }
     });
+
+    songs = [
+        [
+            'Yiruma',
+            'Kiss the Rain',
+            'ktr.mp3'
+        ],
+
+        [
+            'Yiruma',
+            'The River flows in you',
+            'river.mp3'
+        ],
+
+        [
+            'Yiruma',
+            'Over the Horizon',
+            'horizon.mp3'
+        ],
+
+        [
+            'Ludwig van Beethoven',
+            'Moonlight Sonata',
+            'moonlight.mp3'
+        ]
+    ]
     </script>
 </body>
 </html>
