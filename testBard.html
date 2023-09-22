@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wide Textbox with Padding and Rounded Corners at the Bottom of the Page</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      font-size: 16px;
+      background: linear-gradient(to top left, #ffc0cb, #f7d2e6, #f2e3f5, #e9edfe, white);
+    }
+
+    #textbox {
+      width: 90vw;
+      height: 10%;
+      margin: 5vw;
+      margin-bottom: 3vw;
+      padding: 10px;
+      border-radius: 25px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <!-- Other content on the page -->
+
+  <textarea id="textbox"></textarea>
+
+  <script>
+    // JavaScript code to position the textbox at the bottom of the page
+    var textbox = document.getElementById("textbox");
+    textbox.style.position = "fixed";
+    textbox.style.bottom = "0";
+    textbox.style.left = "0";
+  </script>
+</body>
+</html>
